@@ -19,13 +19,20 @@ fi
 FILE_NAME=$(basename $OUTPUT_PDF)
 DIR=$(dirname $OUTPUT_PDF)
 
+echo "TEST 1"
+echo $3
+echo "TEST 2"
+
 PUSH_PATH=$3
 if [[ ! -z $PUSH_PATH ]]; then
   if [[ ${PUSH_PATH:0:1} == "/" ]]; then
     PUSH_PATH=${PUSH_PATH:1}
   fi
   DIR=$PUSH_PATH
+  OUTPUT_PDF="$DIR/$FILE_NAME"
 fi
+
+echo $DIR
 
 STATUSCODE=$(curl --silent --output resp.json --write-out "%{http_code}" -X GET -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${GITHUB_REPOSITORY}/contents/$DIR)
 
