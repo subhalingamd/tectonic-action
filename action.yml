@@ -18,3 +18,4 @@ runs:
   args:
     - ${{ inputs.tex_path }}
     - ${{ inputs.push }}
+    - ${{ inputs.push_path }}
