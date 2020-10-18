@@ -23,6 +23,7 @@ echo "TEST 1"
 echo $3
 echo "TEST 2"
 
+CURRENT_LOC=$OUTPUT_PDF
 PUSH_PATH=$3
 if [[ ! -z $PUSH_PATH ]]; then
   if [[ ${PUSH_PATH:0:1} == "/" ]]; then
@@ -58,7 +59,7 @@ echo '{
     "name": "Tectonic Action",
     "email": "tectonic-action@github.com"
   },
-  "content": "'"$(base64 -w 0 $OUTPUT_PDF)"'",
+  "content": "'"$(base64 -w 0 $CURRENT_LOC)"'",
   "sha": "'$SHA'"
 }' > payload.json
 
