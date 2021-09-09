@@ -50,8 +50,8 @@ done
 echo '{
   "message": "'"update $OUTPUT_PATH"'",
   "committer": {
-    "name": "Tectonic Action",
-    "email": "tectonic-action@github.com"
+    "name": "github-actions[bot]",
+    "email": "github-actions[bot]@users.noreply.github.com"
   },
   "content": "'"$(base64 -w 0 $OUTPUT_PDF)"'",
   "sha": "'$SHA'"
