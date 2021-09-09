@@ -1,5 +1,8 @@
 # Container image that runs your code
-FROM vinay0410/tectonic-image:latest
+FROM artafinde/docker-tectonic:latest
+
+# Download 'jq' package
+RUN pacman -Sy --noconfirm --needed jq
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
