@@ -15,6 +15,9 @@ inputs:
   push_path:
     description: 'Path of output PDF, PDF will be pushed to same directory as Tex File if unused'
     required: false
+  push_branch:
+    description: 'Branch to push output PDF, PDF will be pushed to branch that triggers the action if unused'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -22,3 +25,4 @@ runs:
     - ${{ inputs.tex_path }}
     - ${{ inputs.push }}
     - ${{ inputs.push_path }}
+    - ${{ inputs.push_branch }}
