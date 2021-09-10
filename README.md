@@ -20,8 +20,12 @@ This action compiles latex/xelatex files using [Tectonic](https://tectonic-types
 
 **Optional** Branch to push compiled PDF to, if defined. *(Default: Branch in which action is triggered)*
 
+### `logging`
+
+**Optional** Whether to output API response when status code is not 2XX. True if `logging` is passed as 'yes'. Default is 'no'.
+
 ## Outputs
-Pushes a Compiled PDF file parallel to the tex, xtx file, if push is passed as 'yes' and push_path is undefined. Otherwise a Compiled PDF file will be pushed to the location defined in push_path, if push is passed as 'yes'.
+Pushes a Compiled PDF file parallel to the tex, xtx file, if push is passed as 'yes' and push_path is undefined. Otherwise a Compiled PDF file will be pushed to the location defined in push_path, if push is passed as 'yes'. Logging is false by default.
 
 ## Example usage
 
@@ -44,6 +48,7 @@ jobs:
         push: 'yes'
         push_path: 'output_dir'
         push_branch: 'gh-pages'
+        logging: 'yes'
 ```
 
 ### Doesn't Push Compiled PDF

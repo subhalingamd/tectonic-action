@@ -34,11 +34,14 @@ if [[ -z $PUSH_BRANCH ]]; then
   PUSH_BRANCH=${GITHUB_REF##*/}
 fi
 
+LOGGING=$(echo "$5" | tr '[:upper:]' '[:lower:]')
 STATUSCODE=$(curl --silent --output resp.json --write-out "%{http_code}" -X GET -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${GITHUB_REPOSITORY}/contents/${DIR}?ref=${PUSH_BRANCH})
 
 if [ $((STATUSCODE/100)) -ne 2 ]; then
   echo "Github's API returned $STATUSCODE"
-  cat resp.json
+  if [[ $LOGGING == "yes" ]]; then
+    cat resp.json
+  fi
   exit 22;
 fi
 
@@ -63,11 +66,14 @@ echo '{
   "sha": "'$SHA'"
 }' > payload.json
 
-STATUSCODE=$(curl --silent --output /dev/stderr --write-out "%{http_code}" \
+STATUSCODE=$(curl --silent --output resp1.json --write-out "%{http_code}" \
             -i -X PUT -H "Authorization: token $GITHUB_TOKEN" -d @payload.json \
             https://api.github.com/repos/${GITHUB_REPOSITORY}/contents/${OUTPUT_PATH})
 
 if [ $((STATUSCODE/100)) -ne 2 ]; then
   echo "Github's API returned $STATUSCODE"
+  if [[ $LOGGING == "yes" ]]; then
+    cat resp1.json
+  fi
   exit 22;
 fi
