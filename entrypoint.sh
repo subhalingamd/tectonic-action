@@ -29,7 +29,12 @@ if [[ ! -z $PUSH_PATH ]]; then
   OUTPUT_PATH="$DIR/$FILE_NAME"
 fi
 
-STATUSCODE=$(curl --silent --output resp.json --write-out "%{http_code}" -X GET -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${GITHUB_REPOSITORY}/contents/$DIR)
+PUSH_BRANCH=$4
+if [[ -z $PUSH_BRANCH ]]; then
+  PUSH_BRANCH=${GITHUB_REF##*/}
+fi
+
+STATUSCODE=$(curl --silent --output resp.json --write-out "%{http_code}" -X GET -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/${GITHUB_REPOSITORY}/contents/${DIR}?ref=${PUSH_BRANCH})
 
 if [ $((STATUSCODE/100)) -ne 2 ]; then
   echo "Github's API returned $STATUSCODE"
@@ -54,6 +59,7 @@ echo '{
     "email": "tectonic-action@github.com"
   },
   "content": "'"$(base64 -w 0 $OUTPUT_PDF)"'",
+  "branch": "'$PUSH_BRANCH'",
   "sha": "'$SHA'"
 }' > payload.json
 
