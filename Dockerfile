@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM artafinde/docker-tectonic:latest
+FROM wtfjoke/setup-tectonic@v1
 
 # Download 'jq' package
 RUN pacman -Sy --noconfirm --needed jq
